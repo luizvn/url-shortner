@@ -1,6 +1,6 @@
-import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { Logger } from 'nestjs-pino';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -17,9 +17,10 @@ async function bootstrap() {
   );
 
   app.useLogger(app.get(Logger));
+  const logger = app.get(Logger);
 
   await app.listen();
-  Logger.log(`Microservice is running on port 3001`);
+  logger.log(`Microservice is running on port 3001`);
 }
 
 bootstrap();

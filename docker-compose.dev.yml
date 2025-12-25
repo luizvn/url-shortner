@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  auth_db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ${AUTH_DB_USER}
+      POSTGRES_PASSWORD: ${AUTH_DB_PASS}
+      POSTGRES_DB: ${AUTH_DB_NAME}
+    ports:
+      - '5433:${AUTH_DB_PORT}'
+    volumes:
+      - auth_db_data:/var/lib/postgresql/data
+    networks:
+      - shared-network
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: /bin/sh -c "npx prisma generate --schema=./auth-service/prisma/schema.prisma && npx nx serve auth-service"
+    environment:
+      AUTH_DB_URL: postgres://${AUTH_DB_USER}:${AUTH_DB_PASS}@auth_db:5432/${AUTH_DB_NAME}
+    ports:
+      - '3001:3001'
+    depends_on:
+      - auth_db
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: npx nx serve api-gateway --host 0.0.0.0
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.nx
+    depends_on:
+      - auth-service
+    networks:
+      - shared-network
+
+volumes:
+  auth_db_data:
+    driver: local
+
+networks:
+  shared-network:
+    driver: bridge

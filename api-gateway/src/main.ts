@@ -24,11 +24,12 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
+  app.useLogger(app.get(Logger));
+  const logger = app.get(Logger);
+
   const port = process.env.PORT || 3000;
   await app.listen(port, '0.0.0.0');
 
-  app.useLogger(app.get(Logger));
-  const logger = app.get(Logger);
   logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
   logger.log(`🚀 Swagger is available on: http://localhost:${port}/docs`);
 }
