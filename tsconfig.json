@@ -4,16 +4,13 @@
   "files": [],
   "references": [
     {
-      "path": "./api-gateway-e2e"
-    },
-    {
       "path": "./api-gateway"
-    },
-    {
-      "path": "./auth-service-e2e"
     },
     {
       "path": "./auth-service"
     }
-  ]
+  ],
+  "sync": {
+    "applyChanges": true
+  }
 }
