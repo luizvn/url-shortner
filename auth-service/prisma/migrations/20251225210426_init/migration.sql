@@ -12,7 +12,7 @@ CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT,
-    "name" TEXT,
+    "name" TEXT NOT NULL,
     "role" "Role" NOT NULL DEFAULT 'USER',
     "status" "Status" NOT NULL DEFAULT 'ACTIVE',
     "authProvider" "AuthProvider" NOT NULL DEFAULT 'LOCAL',
