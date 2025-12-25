@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -13,7 +13,7 @@ async function bootstrap() {
         port: 3001,
       },
       bufferLogs: true,
-    },
+    }
   );
 
   app.useLogger(app.get(Logger));
