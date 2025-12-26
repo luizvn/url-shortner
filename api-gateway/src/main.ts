@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { GlobalExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -26,6 +27,8 @@ async function bootstrap() {
 
   app.useLogger(app.get(Logger));
   const logger = app.get(Logger);
+
+  app.useGlobalFilters(new GlobalExceptionFilter());
 
   const port = process.env.PORT || 3000;
   await app.listen(port, '0.0.0.0');
