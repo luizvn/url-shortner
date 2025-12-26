@@ -9,23 +9,22 @@ export type CreateUserProps = {
     role?: Role;
     status?: Status;
     authProvider?: AuthProvider;
-    name?: string;
-    googleId?: string;
-    password?: string;
+    name?: string | null;
+    googleId?: string | null;
+    password?: string | null;
     id?: string;
 }
 
 export class User {
-
     constructor(
         public readonly email: string,
         public readonly role: Role,
         public readonly status: Status,
         public readonly authProvider: AuthProvider,
         public readonly name: string,
-        public readonly googleId?: string,
-        public readonly password?: string,
-        public readonly id?: string,
+        public readonly googleId: string | null,
+        public readonly password: string | null,
+        public readonly id: string | undefined,
     ) {
         this.validate();
     }
@@ -40,8 +39,8 @@ export class User {
             props.status ?? Status.ACTIVE,
             props.authProvider ?? AuthProvider.LOCAL,
             name,
-            props.googleId,
-            props.password,
+            props.googleId ?? null,
+            props.password ?? null,
             props.id,
         );
     }

@@ -1,4 +1,4 @@
 export enum AuthProvider {
-    LOCAL,
-    GOOGLE
+    LOCAL = 'LOCAL',
+    GOOGLE = 'GOOGLE',
 }
