@@ -3,12 +3,15 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "src",
-    "outDir": "dist",
+    "outDir": "../../dist/out-tsc",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "emitDeclarationOnly": false,
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "include": ["src/**/*.ts"],
   "references": []
 }
